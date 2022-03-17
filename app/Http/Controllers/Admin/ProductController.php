@@ -64,7 +64,9 @@ class ProductController extends Controller
         }
 
         DB::beginTransaction();
-
+        echo '<pre>';
+        print_r($productData);
+        exit;
         try {
 
             // dd($productData);
