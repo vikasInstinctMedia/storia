@@ -64,9 +64,17 @@ class ProductController extends Controller
         }
 
         DB::beginTransaction();
-        echo '<pre>';
-        print_r($productData);
-        exit;
+
+
+        $nutritional_information_json = [];
+        $skuList = explode(PHP_EOL, $productData['nutritional_information']);
+
+        foreach ($skuList as $key => $value) {
+            $innerdata = explode('-', $value);
+            $nutritional_information_json[$innerdata[0]] = $innerdata[1];
+        }
+
+        $productData['nutritional_information_json'] = json_encode($nutritional_information_json);
         try {
 
             // dd($productData);
@@ -207,6 +215,16 @@ parse_str($components['query'], $results);
             $uspArray = $this->updatedFruitIconDetails($request->fruiticon, $request->fruiticon_icon, $originalProductData->fruiticons);
             $productData['fruiticons'] = json_encode($uspArray);
         }
+
+        $nutritional_information_json = [];
+        $skuList = explode(PHP_EOL, $productData['nutritional_information']);
+
+        foreach ($skuList as $key => $value) {
+            $innerdata = explode('-', $value);
+            $nutritional_information_json[$innerdata[0]] = $innerdata[1];
+        }
+
+        $productData['nutritional_information_json'] = json_encode($nutritional_information_json);
 
 
         // dd('fruiticons')
