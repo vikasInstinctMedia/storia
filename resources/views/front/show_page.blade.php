@@ -1,5 +1,18 @@
 @extends('layouts.front')
+@section('style')
+@if (isset($meta_title))
+<meta name="title" content="{{ $meta_title }}">
+<title>{{ $meta_title }}</title>
+@else
+<title>Storia Foods &#8211; Home</title>
+@endif
 
+@if (isset($meta_description))
+<meta name="description" content="{{ $meta_description }}">
+@else
+<meta name="description" content="Storia Foods &#8211; Home">
+@endif
+@endsection
 @section('content')
 
 <div class="section border-bottom pt-2 pb-2">

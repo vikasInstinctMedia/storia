@@ -60,7 +60,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-sm-6">
+                                <div class="col-sm-12">
                                     <div class="form-group">
                                         <label for="exampleInputFile">Thumbnail Image (Resolution : 870 X 470 px)</label>
                                         <div class="input-group">
@@ -75,7 +75,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-sm-12">
+                                <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="">Description</label>
                                         <div class="input-group">
@@ -85,6 +85,30 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label for="">Meta Title</label>
+                                                <div class="input-group">
+                                                    <input type="text" name="meta_title" class="form-control" value="{{ isset($recipe->meta_title) ? $recipe->meta_title : '' }}">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label for="">Meta Description</label>
+                                                <div class="input-group">
+                                                    <textarea name="meta_description" class="form-control" id="" cols="30" rows="10">{{ isset($recipe->meta_description) ? $recipe->meta_description : '' }}</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
 
                             </div>
 

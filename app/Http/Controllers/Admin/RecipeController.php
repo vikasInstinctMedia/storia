@@ -89,6 +89,8 @@ class RecipeController extends Controller
 
         $category_data = Recipe::where('id',$request->recipe_id)->first();
         $category_data->title = $request->title;
+        $category_data->meta_title = $request->meta_title;
+        $category_data->meta_description = $request->meta_description;
         $category_data->recipe_category_id = $request->recipe_category_id;
         $category_data->thumbnail_image = isset($data['thumbnail_image']) ? $data['thumbnail_image'] : $category_data->thumbnail_image;
         $category_data->published_date = $category_data->published_date;

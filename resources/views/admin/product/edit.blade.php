@@ -155,7 +155,7 @@
                             </div>
                             <div class="card-body">
 
-                                
+
                                 <div class="form-group row" id="included_products_container" style="{{ $product->type != 'assorted' ? 'display:none' : '' }}">
                                     <label class="col-md-3 col-from-label">Products <span class="text-danger">*</span></label>
                                     <div class="col-md-8">
@@ -218,17 +218,17 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 col-from-label">Meta Title</label>
                                     <div class="col-md-8">
-                                        <input name="meta_title" value="{{ old('meta_title', $product->meta_title) }}" type="text" class="form-control" placeholder="Meta Title">
+                                        <input name="meta_title" value="{{ $product->meta_title }}" type="text" class="form-control" placeholder="Meta Title">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-md-3 col-from-label">Description</label>
                                     <div class="col-md-8">
-                                        <textarea name="meta_description" rows="8" class="form-control">{{ old('meta_description', $product->meta_description) }}</textarea>
+                                        <textarea name="meta_description" rows="8" class="form-control">{{ $product->meta_description }}</textarea>
                                     </div>
                                 </div>
 
-                                <div class="form-group row">
+                                {{-- <div class="form-group row">
                                     <label class="col-md-3 col-form-label" for="signinSrEmail">meta Images <small>(600x600)</small></label>
                                     <div class="col-md-8">
                                         <div class="input-group">
@@ -238,7 +238,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
 

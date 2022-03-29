@@ -20,7 +20,7 @@
 	<meta name="facebook-domain-verification" content="sg8mzhgb7j6gagrc2dti9eyy54wqs8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
 	<link rel="shortcut icon" href="{{asset('front/images/favicon.ico')}}" />
-	<title>Storia Foods &#8211; Home</title>
+	{{-- <title>Storia Foods &#8211; Home</title> --}}
 
 	<link rel="stylesheet" href="{{asset('front/css/bootstrap.min.css')}}" type="text/css" media="all" />
 	<link rel="stylesheet" href="{{asset('front/css/font-awesome.min.css')}}" type="text/css" media="all" />

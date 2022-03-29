@@ -1,5 +1,22 @@
 @extends('layouts.front')
-
+@section('style')
+@if (isset($recipe->meta_title))
+<meta name="title" content="{{ $recipe->meta_title }}">
+<title>{{ $recipe->meta_title }}</title>
+@else
+<title>Storia Foods &#8211; Home</title>
+@endif
+{{-- <pre>
+@php
+    print_r($recipe->toArray());
+    exit;
+@endphp --}}
+@if(isset($recipe->meta_description))
+<meta name="description" content="{{ $recipe->meta_description }}">
+@else
+<meta name="description" content="Storia Foods &#8211; Home">
+@endif
+@endsection
 @section('content')
 <div id="main">
     <!-- <div class="section section-bg-10 pt-11 pb-17">

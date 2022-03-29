@@ -106,6 +106,21 @@
                                     </div>
                                 </div>
 
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="name" class="required">Meta title</label>
+                                            <input name="meta_title" type="text" class="form-control" autocomplete="off" value="{{ $category->meta_title }}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="name" class="required">Meta Description</label>
+                                           <textarea name="meta_description" id="" cols="30" rows="10" class="form-control">{{ $category->meta_description }}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">

@@ -39,7 +39,7 @@ class ProductController extends Controller
         // dd($request->all());
         $data = $request->all();
 
-        $productData = $request->only('name', 'type', 'slug', 'price', 'description', 'nutritional_information', 'is_featured', 'know_your_fruit_title', 'know_your_fruit_desc');
+        $productData = $request->only('name', 'type', 'slug', 'price', 'description', 'nutritional_information', 'is_featured', 'know_your_fruit_title', 'know_your_fruit_desc', 'meta_title', 'meta_description');
 
         if($request->has('banner_image') ) {
             $productData['banner_image'] =  $request->file('banner_image')->store('product');
@@ -188,7 +188,7 @@ parse_str($components['query'], $results);
     {
         // dump($request->all());
         // upload banner image
-        $productData = $request->only('name', 'slug','type','season','price', 'description', 'nutritional_information', 'is_featured', 'know_your_fruit_title', 'know_your_fruit_desc');
+        $productData = $request->only('name', 'slug','type','season','price', 'description', 'nutritional_information', 'is_featured', 'know_your_fruit_title', 'know_your_fruit_desc','meta_title','meta_description');
 
         if($request->has('banner_image') ) {
             $productData['banner_image'] =  $request->file('banner_image')->store('product');

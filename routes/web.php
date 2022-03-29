@@ -42,7 +42,7 @@ Route::group(['middleware'=>['auth:admin', 'verify_role:admin'], 'as' => 'admin.
     Route::get('recipes/category/delete/{id}', [RecipeController::class, 'category_delete'])->name('recipe.categories_delete');
 
 
-    Route::get('recipes/list', [RecipeController::class, 'index'])->name('recipes_list');
+    Route::get('recipes/list', [RecipeController::class, 'recipe_index'])->name('recipes_list');
     Route::get('recipes/getlist', [RecipeController::class, 'recipegetlist'])->name('recipe.getlist');
     Route::get('recipes/create', [RecipeController::class, 'recipe_create'])->name('recipe.create');
     Route::post('recipes/store', [RecipeController::class, 'recipe_store'])->name('recipe.store');

@@ -1,5 +1,20 @@
 @extends('layouts.front')
 
+@section('style')
+@if (isset($metadata['meta_title']))
+<meta name="title" content="{{ $metadata['meta_title'] }}">
+<title>{{ $metadata['meta_title'] }}</title>
+@else
+<title>Storia Foods &#8211; Home</title>
+@endif
+
+@if (isset($metadata['meta_description']))
+<meta name="description" content="{{ $metadata['meta_description'] }}">
+@else
+<meta name="description" content="Storia Foods &#8211; Home">
+@endif
+@endsection
+
 @section('content')
 <style>
     #rev_slider {

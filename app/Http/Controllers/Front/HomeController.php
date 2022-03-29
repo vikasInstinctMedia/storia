@@ -36,13 +36,20 @@ class HomeController extends Controller
         $about_us_data_array = json_decode($about_us_data->value,true);
         $banners = Banner::orderBy('sequence','ASC')->get();
         $categories =  Category::active()->get();
-        return view('front.index',compact('categories', 'banners','about_us_data_array'));
+
+        $metadata['meta_title'] = 'Storia Foods - Home';
+        $metadata['meta_description'] = 'Storia Foods - Home';
+
+        return view('front.index',compact('categories', 'banners','about_us_data_array','metadata'));
     }
 
     public function blog()
     {
         $blogs = Blog::get();
-        return view('front.blog', compact('blogs'));
+        $metadata['meta_title'] = 'Storia Foods - Blogs';
+        $metadata['meta_description'] = 'Storia Foods - Blogs';
+
+        return view('front.blog', compact('blogs','metadata'));
     }
 
     public function recipes($slug = null)
@@ -56,19 +63,29 @@ class HomeController extends Controller
             $category = $recipeCategories->first()->load('recipes');
         }
 
-        return view('front.recipes', compact('recipeCategories', 'category'));
+        $metadata['meta_title'] = 'Storia Foods - recipes';
+        $metadata['meta_description'] = 'Storia Foods - recipes';
+
+        return view('front.recipes', compact('recipeCategories', 'category','metadata'));
     }
 
     public function aboutus()
     {
         $about_us_data = Setting::where('key','about_us')->first();
         $about_us_data_array = json_decode($about_us_data->value,true);
-        return view('front.aboutus',compact('about_us_data','about_us_data_array'));
+
+        $metadata['meta_title'] = 'Storia Foods - About Us';
+        $metadata['meta_description'] = 'Storia Foods - About Us';
+
+        return view('front.aboutus',compact('about_us_data','about_us_data_array','metadata'));
     }
 
     public function contactus()
     {
-        return view('front.contactus');
+        $metadata['meta_title'] = 'Storia Foods - Contact Us';
+        $metadata['meta_description'] = 'Storia Foods - Contact Us';
+
+        return view('front.contactus',compact('metadata'));
     }
 
     public function products()
@@ -166,17 +183,26 @@ class HomeController extends Controller
 
     public function terms()
     {
-        return view('front.terms');
+        $metadata['meta_title'] = 'Storia Foods - Terms And Conditions';
+        $metadata['meta_description'] = 'Storia Foods -Terms And Conditions';
+
+        return view('front.terms',compact('metadata'));
     }
 
     public function privacyPolicy()
     {
-        return view('front.privacy_policy');
+        $metadata['meta_title'] = 'Storia Foods - Privacy Policy';
+        $metadata['meta_description'] = 'Storia Foods -Privacy Policy';
+
+        return view('front.privacy_policy',compact('metadata'));
     }
 
     public function refundPolicy()
     {
-        return view('front.refund_policy');
+        $metadata['meta_title'] = 'Storia Foods - Refund Policy';
+        $metadata['meta_description'] = 'Storia Foods - Refund Policy';
+
+        return view('front.refund_policy',compact('metadata'));
     }
 
     public function getCitiesByState(Request $request)

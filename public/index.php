@@ -3,6 +3,24 @@
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
 
+$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+if($actual_link == 'https://shop.storiafoods.com/storia-blogs/' || $actual_link == 'https://shop.storiafoods.com/storia-blogs'){
+    header("Location: https://shop.storiafoods.com/blog");
+    die();
+}elseif ($actual_link == 'https://shop.storiafoods.com/user/' || $actual_link == 'https://shop.storiafoods.com/user') {
+    header("Location: https://shop.storiafoods.com/user/userlogin");
+    die();
+}elseif ($actual_link == 'https://shop.storiafoods.com/recipe/' || $actual_link == 'https://shop.storiafoods.com/recipe') {
+    header("Location: https://shop.storiafoods.com/recipes");
+    die();
+}elseif ($actual_link == 'https://shop.storiafoods.com/recipe/' || $actual_link == 'https://shop.storiafoods.com/recipe') {
+    header("Location: https://shop.storiafoods.com/recipes");
+    die();
+}else{
+
+}
+
+
 define('LARAVEL_START', microtime(true));
 
 /*

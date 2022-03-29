@@ -65,8 +65,8 @@ class CatalogController extends Controller
 
             $data['products'] = $products;
 
-
-
+            $data['meta_title'] = $category->meta_title;
+            $data['meta_description'] = $category->meta_description;
             // dd($data);
             return view('front.products', $data);
         }
@@ -80,7 +80,8 @@ class CatalogController extends Controller
             // $this->loadAllInformationInJson();
             // dd($product->categories()->first()->category->id);
             $data['faqs']    = $this->getFAQs($product->categories());
-
+            $data['meta_title'] = $product->meta_title;
+            $data['meta_description'] = $product->meta_description;
             // dd($product);
             // echo '<pre>';
             // for recommended  part starts here--------------------------------

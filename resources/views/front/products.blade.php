@@ -1,13 +1,24 @@
 @extends('layouts.front')
 
 @section('style')
+@if (isset($meta_title))
+<meta name="title" content="{{ $meta_title }}">
+<title>{{ $meta_title }}</title>
+@else
+<title>Storia Foods &#8211; Home</title>
+@endif
 
+@if (isset($meta_description))
+<meta name="description" content="{{ $meta_description }}">
+@else
+<meta name="description" content="Storia Foods &#8211; Home">
+@endif
 <style>
 	.section-bg-10 {
 		background-image: url("{{ url('storage/'. $category->banner_image) }}");
 	}
 	/* .product_list_image {
-		
+
 	} */
 
 	.test-div {
@@ -34,7 +45,7 @@
 				<div class="section section-bg-10">
 					<div class="container">
 						<div class="row">
-							
+
 						</div>
 					</div>
 				</div>
@@ -55,15 +66,15 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-md-12">
-								{{-- 
+								{{--
 								@include('includes.filter')
 								--}}
-								
+
 								<div class="product-grid">
 									@include('includes.product.filtered-products')
 								</div>
 							</div>
-							{{-- 
+							{{--
 								@include('includes.catalog')
 							--}}
 						</div>
@@ -86,6 +97,6 @@
 
 	});
 </script>
-	
+
 @endsection
 

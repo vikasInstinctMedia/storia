@@ -102,6 +102,8 @@ class CategoryController extends Controller
         $category_data = Category::where('id',$request->category_id)->first();
         $category_data->name = $request->name;
         $category_data->slug = $request->slug;
+        $category_data->meta_title = $request->meta_title;
+        $category_data->meta_description = $request->meta_description;
         $category_data->thumbnail_image = isset($data['thumbnail_image']) ? $data['thumbnail_image'] : $category_data->thumbnail_image;
         $category_data->banner_image = isset($data['banner_image']) ? $data['banner_image'] : $category_data->banner_image;
         $category_data->save();

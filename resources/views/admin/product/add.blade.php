@@ -216,7 +216,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group row">
+                                {{-- <div class="form-group row">
                                     <label class="col-md-3 col-form-label" for="signinSrEmail">meta Images <small>(600x600)</small></label>
                                     <div class="col-md-8">
                                         <div class="input-group">
@@ -226,7 +226,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
 
@@ -413,7 +413,7 @@
             if($("#type :selected").val() == 'assorted') {
                 $('#included_products_container').css('display', '');
                 return true;
-            } 
+            }
             $('#included_products_container').css('display', 'none');
         });
 
