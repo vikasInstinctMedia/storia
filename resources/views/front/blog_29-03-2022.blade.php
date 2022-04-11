@@ -1,14 +1,18 @@
 @extends('layouts.front')
-
 @section('style')
-    <style>
-    .post-content{
-        height:170px
-    }
-    </style>
+@if (isset($metadata['meta_title']))
+<meta name="title" content="{{ $metadata['meta_title'] }}">
+<title>{{ $metadata['meta_title'] }}</title>
+@else
+<title>Storia Foods &#8211; Home</title>
+@endif
 
+@if (isset($metadata['meta_description']))
+<meta name="description" content="{{ $metadata['meta_description'] }}">
+@else
+<meta name="description" content="Storia Foods &#8211; Home">
+@endif
 @endsection
-
 @section('content')
 
 <div id="main">
@@ -43,7 +47,7 @@
 									<div class="col-md-4 masonry-item">
 										<div class="blog-grid-item">
 											<div class="post-thumbnail blog-image-div">
-												<a href="{{ url('blog') }}/{{ $blog->slug }}">
+												<a href="blog-detail.html">
 													<img src="{{ asset('storage/'. $blog->thumbnail_image) }}" alt="" />
 												</a>
 											</div>
@@ -51,24 +55,18 @@
 												<div class="entry-meta">
 													<span class="posted-on">
 														<i class="ion-calendar"></i>
-														{{-- <span>August 9, 2016</span> --}}
-														{{ date('F d, Y', strtotime($blog->created_at)); }}
+														<span>August 9, 2016</span>
 													</span>
 													<span class="comment">
-														<i class="ion-chatbubble-working"></i>
+														<i class="ion-chatbubble-working"></i> 0
 													</span>
 												</div>
-												@php
-														$blogName=str_replace(' ', ';',$blog->title);
-													@endphp
-												<a href="{{ url('blog') }}/{{ $blog->slug }}" target="_blank">
+												<a href="{{ $blog->redirect_url }}" target="_blank">
 													<h1 class="entry-title">{{ $blog->title }}</h1>
 												</a>
 
 												<div class="entry-more">
-
-													{{-- <a href="{{ $blog->redirect_url }}" target="_blank">Read more</a> --}}
-													<a href="{{ url('blog') }}/{{ $blog->slug }}" target="_blank">Read more</a>
+													<a href="{{ $blog->redirect_url }}" target="_blank">Read more</a>
 												</div>
 											</div>
 										</div>

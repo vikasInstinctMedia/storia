@@ -52,6 +52,14 @@ class HomeController extends Controller
         return view('front.blog', compact('blogs','metadata'));
     }
 
+    public function blog_details($slug){
+
+        //$Products =Products::find(1);
+        $blogDetails =Blog::select('*')->where('slug',$slug)->first();
+        $blogs = Blog::where('id', '!=', $blogDetails->id)->orderBy('id','desc')->get();
+        return view('front.blog_details', ['blogs' => $blogs,'blogDetails'=>$blogDetails]);
+    }
+
     public function recipes($slug = null)
     {
         $recipeCategories = RecipeCategory::all();

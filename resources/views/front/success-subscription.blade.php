@@ -47,16 +47,38 @@
                 <div class="content-box section-padding add-product-1">
                     <div class="top-area">
                         <div class="content">
-                            <h4 class="heading">
-                                THANK YOU FOR YOUR PURCHASE.
+
+                            @if (session('short_url') && session('short_url') != '')
+                                @php
+                                    $display = "none";
+                                @endphp
+                            @else
+                                    @php
+                                        $display = 'block';
+                                    @endphp
+                            @endif
+
+                            @if (session('short_url') && session('short_url') != '')
+                            Redirecting To Payment
+                            <progress value="0" max="5" id="progressBar"></progress>
+                            @endif
+                            <h4 class="heading" style="display:{{ $display }}">
+                                THANK YOU
+                                @if (session('short_url') && session('short_url') != '')
+                                 FOR SUBSCRIBING.
+                                @else
+                                FOR YOUR PURCHASE.
+                                @endif
                             </h4>
-                            <p class="text">
+                            <p class="text" style="display:{{ $display }}">
+
+
                                 We'll email you an order confirmation And Subscription Information.
                             </p>
-                            <a href="{{ route('front.index') }}" class="link">Get Back To Our Homepage</a>
+                            <a href="{{ route('front.index') }}" class="link" style="display:{{ $display }}">Get Back To Our Homepage</a>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" style="display:{{ $display }}">
                         <div class="col-lg-12">
 
                             <div class="product__header">
@@ -117,8 +139,8 @@
 @if (session('short_url') && session('short_url') != '')
     <script>
         // alert(1);
-        alert('Subscription Compelte , Now Please Complete Payment To Activate Your Subscription');
-        setTimeout(redirect_razor, 1000);
+        // alert('Subscription Compelte , Now Please Complete Payment To Activate Your Subscription');
+        setTimeout(redirect_razor, 6000);
 
 function redirect_razor() {
 //   document.getElementById("demo").innerHTML = "Happy Birthday!"
@@ -140,4 +162,16 @@ $(function() {
 
 })
 </script>
+
+<script>
+    var timeleft = 5;
+    var downloadTimer = setInterval(function(){
+      if(timeleft <= 0){
+        clearInterval(downloadTimer);
+      }
+      document.getElementById("progressBar").value = 5 - timeleft;
+      timeleft -= 1;
+    }, 1000);
+
+    </script>
 @endsection

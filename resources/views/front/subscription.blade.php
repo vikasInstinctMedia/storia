@@ -287,7 +287,7 @@
 
             <div class="col-md-6 col-xs-12 col-sm-12 zin" >
                 <label for="">For</label>
-                <select name="for_how_many" id="" style="display: inline-block;width:80%">
+                <select name="for_how_many" id="" class="form-control" style="display: inline-block;width:80%">
                 @for ($i = 1; $i <= 24; $i++)
                 <option value="{{ $i }}">{{ $i }}</option>
                 @endfor

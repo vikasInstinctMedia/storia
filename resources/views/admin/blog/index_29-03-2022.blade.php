@@ -40,9 +40,8 @@
                   <tr>
                     <th>ID</th>
                     <th>Name</th>
+                    {{-- <th>Slug</th> --}}
                     <th>Thumbnail Image</th>
-                    <th>Author</th>
-                    {{-- <th>Created Date</th> --}}
                     <th>Action</th>
                   </tr>
                   </thead>
@@ -86,10 +85,8 @@
             // {data: 'slug', name: 'slug'},
             {data: 'thumbnail_image', name: 'thumbnail_image', searchable: false, orderable: false, render: function(data, type, row) {
               console.log(data);
-              return `<img src="${data}"  alt="" height="30px" weight="50px">`;
+              return `<img src="${data}" . '" alt="" height="30px" weight="50px">`;
             }},
-            {data: 'auther', name: 'auther'},
-            //{data: 'created_at', name: 'created_at'},
             {data: 'action', name: 'action', orderable: false, searchable: false, render: function(data, type, row) {
 
 

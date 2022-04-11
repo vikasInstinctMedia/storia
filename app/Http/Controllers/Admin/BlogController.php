@@ -38,6 +38,7 @@ class BlogController extends Controller
 
         // $data['banner_image']    = $data['banner_image'] ? $request->file('banner_image')->store('categories') : '';
         $data['thumbnail_image'] = $data['thumbnail_image'] ? $request->file('thumbnail_image')->store('blog') : '';
+        $data['banner_image'] = $data['banner_image'] ? $request->file('banner_image')->store('blog') : '';
         // print_r($data);
         // exit;
         $check = Blog::create($data);
@@ -74,7 +75,11 @@ class BlogController extends Controller
         $data = $request->except('_token', '_method', 'blog_id','slider_url','slider_images');
 
         if( ! empty( $data['thumbnail_image'] ) ) {
-            $data['thumbnail_image'] = $request->file('thumbnail_image')->store('categories') ;
+            $data['thumbnail_image'] = $request->file('thumbnail_image')->store('blog') ;
+        }
+
+        if( ! empty( $data['banner_image'] ) ) {
+            $data['banner_image'] = $request->file('banner_image')->store('blog') ;
         }
 
         // if(! empty($data['banner_image'])) {
@@ -87,7 +92,12 @@ class BlogController extends Controller
         $category_data = Blog::where('id',$request->blog_id)->first();
         $category_data->title = $request->title;
         $category_data->redirect_url = $request->redirect_url;
+        $category_data->description = $request->description;
+        $category_data->auther = $request->auther;
+        $category_data->slug = $request->slug;
+        $category_data->date = $request->date;
         $category_data->thumbnail_image = isset($data['thumbnail_image']) ? $data['thumbnail_image'] : $category_data->thumbnail_image;
+        $category_data->banner_image = isset($data['banner_image']) ? $data['banner_image'] : $category_data->banner_image;
         // $category_data->banner_image = isset($data['banner_image']) ? $data['banner_image'] : $category_data->banner_image;
         $category_data->save();
 

@@ -515,7 +515,7 @@
 	<script type="text/javascript" src="{{ asset('template/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 	<script type="text/javascript" src="{{asset('front/js/slick.min.js')}}"></script>
 	<script type="text/javascript" src="{{asset('front/js/custom.js')}}"></script>
-
+    <script type="text/javascript" src="{{asset('front/js/instafeed.js')}}"></script>
 
 	<!-- Flash Message Popup -->
 	<script>
@@ -546,6 +546,39 @@
 $(window).load(function(){
     $("img").show();
 });
+    </script>
+
+<script type="text/javascript">
+    var userFeed = new Instafeed({
+        get: 'user',
+        target: "instafeed-container",
+        resolution: 'low_resolution',
+        accessToken: 'IGQVJYSWVvTEpzeGVhV2pNSWJrMGszN0NETHB5LVE2N1NzUGdZAd21qOUFyaXo3LUd6V053TDlqbEJ3OWtwNG8ya0xRN2FSSkluVjNFMThRT18zcGw3U2NvVjJCSVh5VHlqaDVCa3N1bE9sR1F5Tk1JSAZDZD'
+    });
+    userFeed.run();
+    </script>
+
+    <script>
+        $(document).ready(function(){
+            $('#instafeed-container').css('display','none');
+
+
+           setTimeout(insfun, 1000);
+
+
+            function insfun() {
+                // alert(1);
+                var insdata = $('#instafeed-container').html();
+                console.log(insdata);
+               var owl =  $('.insposts').find('.owl-wrapper');
+                $(owl).text('');
+               $(owl).append(insdata);
+               var owl2 =  $('.insposts').find('.owl-wrapper-outer');
+                $(owl2).css('z-index','111');
+
+
+            }
+        });
     </script>
 	@yield('scripts')
 

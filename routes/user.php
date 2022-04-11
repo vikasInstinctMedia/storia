@@ -18,7 +18,10 @@ use Darryldecode\Cart\CartCondition;
 
 Route::get('/', [HomeController::class, 'index'])->name('front.index');
 Route::get('/home', [HomeController::class, 'index']);
-Route::get('/blog',[HomeController::class, 'blog'])->name('front.blog');
+// Route::get('/blog',[HomeController::class, 'blog'])->name('front.blog');
+Route::get('/blogs',[HomeController::class, 'blog'])->name('front.blog');
+Route::get('/blog/{slug}',[HomeController::class, 'blog_details'])->name('front.blog_details');
+
 Route::get('/recipes/{slug?}',[HomeController::class, 'recipes'])->name('front.recipes');
 Route::get('/recipe/{recipe}',[HomeController::class, 'recipeShow'])->name('front.recipe.show');
 Route::get('/aboutus',[HomeController::class, 'aboutus'])->name('front.aboutus');
@@ -114,7 +117,9 @@ Route::prefix('user')->group(function() {
     Route::post('/subscription/callback', [SubscriptionController::class, 'razorCallback'])->name('subscription.notify');
     Route::get('/subscription/success', [SubscriptionController::class, 'show_msg'])->name('subscription.return');
     Route::post('/cancel/subscription', [SubscriptionController::class, 'cancel_sub'])->name('subscription.cancel');
-    Route::get('/subscription/generate_orders', [SubscriptionController::class, 'generate_orders'])->name('subscription.generate_orders');
+    Route::get('/subscription/generate_orders', [SubscriptionController::class, 'generate_orders'])->name('subscription.generate_orders'); // cron job
+    Route::get('/subscription/delete/unpaid', [SubscriptionController::class, 'delete_unpaid_subscription'])->name('subscription.delete_unpaid_subscription'); // cron job
+
 
     Route::get('/subscription/create_payment_links_main', [SubscriptionController::class, 'create_payment_links_main'])->name('subscription.create_payment_links_main');
 

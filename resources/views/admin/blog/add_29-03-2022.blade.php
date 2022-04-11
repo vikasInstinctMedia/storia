@@ -45,14 +45,6 @@
 
                                 <div class="col-sm-6">
                                     <div class="form-group">
-
-                                        <label for="name" class="required">Slug</label>
-                                        <input name="slug" type="text" class="form-control" autocomplete="off" value="{{ isset($blog->slug) ? $blog->slug : '' }}" />
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <div class="form-group">
                                         <label for="exampleInputFile">Thumbnail Image (Resolution :  957 X 957 px)</label>
                                         <div class="input-group">
                                             <div class="custom-file">
@@ -67,34 +59,13 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="exampleInputFile">Banner Image (Resolution :  1280 X 768 px)</label>
-                                        <div class="input-group">
-                                            <div class="custom-file">
-                                                <input name="banner_image" type="file" class="custom-file-input" id="exampleInputFile">
-                                                <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                            </div>
-                                        </div>
-                                        @if(isset($blog->banner_image))
-                                            <a target="_blank" href="{{ asset('storage/'.$blog->banner_image ) }}">Uploaded Banner Image</a>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
 
-                                        <label for="name" class="required">Date</label>
-                                        <input name="date" type="date" class="form-control" autocomplete="off" value="{{ isset($blog->date) ? $blog->date : '' }}" />
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-
-                                        <label for="name" class="required">Author</label>
-                                        <input name="auther" type="text" class="form-control" autocomplete="off" value="{{ isset($blog->auther) ? $blog->auther : '' }}" />
+                                        <label for="name" class="required">Redirect Url</label>
+                                        <input name="redirect_url" type="text" class="form-control" autocomplete="off" value="{{ isset($blog->redirect_url) ? $blog->redirect_url : '' }}" />
                                     </div>
                                 </div>
 
-                                <div class="col-sm-12">
+                                {{-- <div class="col-sm-12">
                                     <div class="form-group">
                                         <label for="">Description</label>
                                         <div class="input-group">
@@ -103,7 +74,7 @@
 
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
                             </div>
 

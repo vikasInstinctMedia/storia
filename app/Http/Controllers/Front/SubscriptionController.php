@@ -246,6 +246,18 @@ class SubscriptionController extends Controller
 
     }
 
+    public function delete_unpaid_subscription(){
+        $get_subs = UserSubscription::whereNotNull('razorpay_sub_id')->get();
+        $api = new Api($this->keyId, $this->keySecret);
+        foreach ($get_subs as $key => $value) {
+
+            $response =  $api->subscription->fetch($value->razorpay_sub_id);
+            if($response->payment_method == ''){
+                UserSubscription::where('id', $value->id)->delete();
+            }
+        }
+    }
+
     public function razorCallback(){
 
         // echo "DFsdf"; die;
