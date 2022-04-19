@@ -11,6 +11,6 @@ class BlogsTags extends Model
     protected $table="blogs_tags";
 
     public function tags(){
-        return $this->hasMany(BlogsTags::class,'blog_id');
+        return $this->belongsTo(Tags::class,'tag_id');
     }
 }

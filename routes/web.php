@@ -33,6 +33,8 @@ Route::group(['middleware'=>['auth:admin', 'verify_role:admin'], 'as' => 'admin.
     Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::get('get_chart_data', [DashboardController::class, 'getDataForChart'])->name('chart_data');
 
+    Route::get('/get/tags/suggestions', [DashboardController::class,'get_tags_suggestions'])->name('get.tags.suggestions');
+
     Route::get('recipes/category/list', [RecipeController::class, 'category_index'])->name('recipes_category_list');
     Route::get('recipes/category/getlist', [RecipeController::class, 'categorygetlist'])->name('recipe.categories.getlist');
     Route::get('recipes/category/create', [RecipeController::class, 'category_create'])->name('recipe.categories.create');

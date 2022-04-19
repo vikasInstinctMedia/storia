@@ -14,3 +14,5 @@
 
   <link rel="stylesheet" href="{{ asset('admin/css/style.css') }}" >
   <link rel="stylesheet" href="{{ asset('admin/notiflix/notiflix-2.6.0.min.css') }}">
+
+  <link rel="stylesheet" type="text/css" href="{{ asset('admin/css/amsify.suggestags.css') }}">

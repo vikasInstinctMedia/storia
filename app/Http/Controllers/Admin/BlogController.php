@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Http\Requests\Admin\CategoryRequest;
 use App\Models\Blog;
+use App\Models\BlogsTags;
 use App\Models\CategorySliderImages;
 use App\Models\FrequentlyAskedQuestion;
 use App\Models\Recipe;
+use App\Models\Tags;
 
 class BlogController extends Controller
 {
@@ -26,24 +28,49 @@ class BlogController extends Controller
     public function edit($id)
     {
         $blog = Blog::where('id',$id)->first();
+        $home_feed_tags = BlogsTags::with(['tags'])->where('blog_id',$blog->id)->get();
         $action = 'edit';
-        return view('admin.blog.add',compact('blog','action'));
+        return view('admin.blog.add',compact('blog','action','home_feed_tags'));
     }
 
     public function store(Request $request)
     {
         // dump($request->all());
         $slider_url = $request->slider_url;
-        $data = $request->except('_token','slider_url');
+        $data = $request->except('_token','slider_url','homefeed_tags');
+
+        $tags = $request->input('homefeed_tags');
+
+        $tags_array = explode(',',$tags);
+
 
         // $data['banner_image']    = $data['banner_image'] ? $request->file('banner_image')->store('categories') : '';
         $data['thumbnail_image'] = $data['thumbnail_image'] ? $request->file('thumbnail_image')->store('blog') : '';
         $data['banner_image'] = $data['banner_image'] ? $request->file('banner_image')->store('blog') : '';
-        // print_r($data);
-        // exit;
+
         $check = Blog::create($data);
         if (!$check) {
             return back()->with('error', 'Failed');
+        }
+
+        foreach ($tags_array as $key => $value) {
+            $check_if_exists = Tags::where('tag', $value)->first();
+            if(isset($check_if_exists->id)){
+                $new_blog_tag = new BlogsTags();
+                $new_blog_tag->tag_id = $check_if_exists->id;
+                $new_blog_tag->blog_id = $check->id;
+                $new_blog_tag->save();
+            }else{
+                $add_new_tag = new Tags();
+                $add_new_tag->tag = $value;
+                $add_new_tag->save();
+
+                $new_blog_tag = new BlogsTags();
+                $new_blog_tag->tag_id = $add_new_tag->id;
+                $new_blog_tag->blog_id = $check->id;
+                $new_blog_tag->save();
+
+            }
         }
 
         return redirect()->route('admin.blog.list')->with('message', 'Created');
@@ -72,7 +99,15 @@ class BlogController extends Controller
     {
         // dump($request->all());
         $slider_url = $request->slider_url;
-        $data = $request->except('_token', '_method', 'blog_id','slider_url','slider_images');
+        $data = $request->except('_token', '_method', 'blog_id','slider_url','slider_images','homefeed_tags','old_tags');
+
+        $tags = $request->input('homefeed_tags');
+        $old_tags = $request->input('old_tags');
+
+        $tags_array = explode(',',$tags);
+        $old_tags_array = explode(',',$old_tags);
+
+        $remove_tags=array_diff($old_tags_array,$tags_array);
 
         if( ! empty( $data['thumbnail_image'] ) ) {
             $data['thumbnail_image'] = $request->file('thumbnail_image')->store('blog') ;
@@ -100,6 +135,41 @@ class BlogController extends Controller
         $category_data->banner_image = isset($data['banner_image']) ? $data['banner_image'] : $category_data->banner_image;
         // $category_data->banner_image = isset($data['banner_image']) ? $data['banner_image'] : $category_data->banner_image;
         $category_data->save();
+
+        foreach ($tags_array as $key => $value) {
+            $check_if_exists = Tags::where('tag', $value)->first();
+            if(isset($check_if_exists->id)){
+
+                $check_if_blog_tag_exists = BlogsTags::where('tag_id',$check_if_exists->id)->where('blog_id',$request->blog_id)->first();
+                if(isset($check_if_blog_tag_exists->id)){
+                    continue;
+                }
+                $new_blog_tag = new BlogsTags();
+                $new_blog_tag->tag_id = $check_if_exists->id;
+                $new_blog_tag->blog_id = $request->blog_id;
+                $new_blog_tag->save();
+            }else{
+                $add_new_tag = new Tags();
+                $add_new_tag->tag = $value;
+                $add_new_tag->save();
+
+                $new_blog_tag = new BlogsTags();
+                $new_blog_tag->tag_id = $add_new_tag->id;
+                $new_blog_tag->blog_id = $request->blog_id;
+                $new_blog_tag->save();
+
+            }
+        }
+
+        if(!empty($remove_tags)){
+            foreach ($remove_tags as $key => $value) {
+                $get_tag = Tags::where('tag',$value)->first();
+                if(isset($get_tag->id)){
+                    BlogsTags::where('tag_id', $get_tag->id)->where('blog_id', $request->blog_id)->delete();
+                }
+
+            }
+        }
 
         return back()->with('message', 'success');
     }

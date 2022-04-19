@@ -7,6 +7,7 @@ use App\Helpers\ChartDataHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Inventory;
 use App\Models\Order;
+use App\Models\Tags;
 use DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -65,6 +66,19 @@ class DashboardController extends Controller
         $data['barChartData'] = ChartDataHelper::getOrderData($request->filterWith);
         return $this->successJsonResponse($data);
 
+    }
+
+    public function get_tags_suggestions(Request $request){
+        $req_data = $request->input();
+        $term = isset($req_data['term']) ? $req_data['term'] : '';
+        $get_sugg = Tags::where('status',1)->where('tag', 'like', '%' . $term . '%')->get();
+        $tag_array = [];
+        foreach ($get_sugg as $key => $value) {
+            array_push($tag_array,$value->tag);
+        }
+
+      $final_array = array("suggestions" => $tag_array);
+      return $final_array;
     }
 
 }

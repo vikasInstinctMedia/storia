@@ -48,13 +48,32 @@
 											<i class="ion-calendar"></i>
 											<span>{{ date('F d, Y', strtotime($blogDetails->date)); }}</span>
 										</span>
-										<span class="categories">
-											<i class="ion-folder"></i>
-											{{ $blogDetails->auther }}
+
+                                        @php
+                                        $final_tags = '';
+                                    @endphp
+                                    @foreach ($blogDetails->tags as $item)
+
+                                    @php
+                                        $final_tags = $final_tags.' <a href="javascript:void(0)">'.$item->tags->tag.'</a> ,';
+                                    @endphp
+
+
+                                    @endforeach
+
+                                    @if ($final_tags != '')
+                                    <span class="categories">
+                                        <i class="ion-folder"></i>
+
+                                        @php
+                                            echo rtrim($final_tags,',');
+                                        @endphp
+                                    </span>
+                                    @endif
+
+										<span class="comment">
+											<i class="ion-chatbubble-working"></i> {{ $blogDetails->auther }}
 										</span>
-										{{-- <span class="comment">
-											<i class="ion-chatbubble-working"></i> 0
-										</span> --}}
 									</div>
 									<h1 class="entry-title">{{ $blogDetails->title }}</h1>
 									<div class="entry-content">

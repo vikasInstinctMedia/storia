@@ -20,7 +20,6 @@ use App\Mail\OrderPlacedMail;
 use Mail;
 use App\Helpers\SmsAPIHelper;
 use App\Models\Address;
-use Illuminate\Support\Facades\Log;
 
 class RazorpayController extends Controller
 {
@@ -225,8 +224,7 @@ class RazorpayController extends Controller
     {
 
         // echo "DFsdf"; die;
-        // print_r($_POST); die;
-        Log::info(json_encode($_POST));
+        //print_r($_POST); die;
         $success = true;
 
         $error = "Payment Failed";
@@ -242,14 +240,13 @@ class RazorpayController extends Controller
 
                 $this->api->utility->verifyPaymentSignature($attributes);
             } catch (SignatureVerificationError $e) {
-                Log::info('signiture verification failed');
                 $success = false;
                 $error = 'Razorpay Error : ' . $e->getMessage();
             }
         }
 
         if ($success === true) {
-            Log::info('Payment Success');
+
             $razorpayOrder = $this->api->order->fetch(session('razorpay_order_id'));
 
             $order_id = $razorpayOrder['receipt'];
@@ -257,7 +254,6 @@ class RazorpayController extends Controller
             $order = Order::where('order_number', $order_id)->first();
 
             if (isset($order)) {
-                Log::info('Order Data Updated');
                 $data['txnid'] = $transaction_id;
                 $data['payment_status'] = 'Completed';
 
@@ -272,7 +268,7 @@ class RazorpayController extends Controller
 
 
                 // Sending mail
-               $mail_data =  Mail::to($order->customer_email)->queue(new OrderPlacedMail($order));
+                Mail::to($order->customer_email)->queue(new OrderPlacedMail($order));
 
 
                 // Sending SMS
@@ -281,32 +277,13 @@ class RazorpayController extends Controller
                     'order_number' => $order->order_number
                 ]);
 
-
-
                 Session::put('temporder', $order);
 
-                    $o_array = array('order' => $order);
-                // echo '<pre>';
-                // print_r($order);
-                // exit;
-
-                  Mail::send('mail', $o_array, function($message) use ($o_array) {
-                     $message->to($o_array['order']->customer_email, $o_array['order']->customer_name)->subject
-                        ('Order Confirmed');
-                     $message->from('vikasinstinctmedia@gmail.com','StoriaFoods');
-                  });
-                  echo "HTML Email Sent. Check your inbox.";
-
-
-
-            }else{
-                Log::info('Order Data Not Updated');
             }
-
             return redirect()->route('payment.return');
 
         } else {
-            Log::info('Payment Failed');
+
             return redirect(route('front.checkout'));
         }
 

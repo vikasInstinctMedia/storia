@@ -13,6 +13,8 @@
     <script src="{{ asset('admin/notiflix/notiflix-2.6.0.min.js') }}"></script>
     <script src="{{ asset('admin/notiflix/notiflix-aio-2.6.0.min.js') }}"></script>
 
+    <script type="text/javascript" src="{{ asset('admin/js/jquery.amsify.suggestags.js') }}"></script>
+
 <!-- Flash Message Popup -->
 <script>
     toastr.options = { "closeButton" : true, "progressBar" : true };
@@ -32,7 +34,7 @@
                     str += "<li style='float:left'>{{ $error }}</li>";
             @endforeach
         str += "</ul>";
-        
+
         span.innerHTML = str;
 
         Swal.fire({
@@ -51,7 +53,7 @@
             $(this).val().replace(/[^\.\d].+/, "")
             // $(this).val().replace(/(?<=^| )\d+(\.\d+)?(?=$| )|(?<=^| )\.\d+(?=$| )/, "")
         );
-        if ((event.which < 48 || event.which > 57) && even.which != 46) {    
+        if ((event.which < 48 || event.which > 57) && even.which != 46) {
             event.preventDefault();
         }
 

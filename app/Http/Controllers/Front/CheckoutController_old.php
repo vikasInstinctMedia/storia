@@ -228,17 +228,6 @@ class CheckoutController extends Controller
             'order_number' => $order->order_number
         ]);
 
-        // echo '<pre>';
-        // print_r($order);
-        // exit;
-          $o_array = array('order' => $order);
-                  Mail::send('mail', $o_array, function($message) use ($o_array) {
-                     $message->to($o_array['order']->customer_email, $o_array['order']->customer_name)->subject
-                        ('Order Confirmed');
-                     $message->from('vikasinstinctmedia@gmail.com','StoriaFoods');
-                  });
-                  echo "HTML Email Sent. Check your inbox.";
-
         //Sending Email To Admin
         return redirect()->route('payment.return');
     }

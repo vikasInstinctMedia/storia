@@ -94,7 +94,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-sm-12">
+                                <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="">Description</label>
                                         <div class="input-group">
@@ -102,6 +102,27 @@
                                                 <textarea name="description">{{ isset($blog->description) ? $blog->description : '' }}</textarea>
 
                                         </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Tags</label>
+
+                                            <input type="text" class="form-control homefeed_tags" value="@php
+                                                if(isset($home_feed_tags)){
+                                                    $tag_array = [];
+                                                    foreach ($home_feed_tags as $key => $value) {
+                                                        array_push($tag_array,$value->tags->tag);
+                                                    }
+                                                    echo implode(",",$tag_array);
+                                                }
+                                            @endphp" name="homefeed_tags"/>
+
+                                            @if (isset($tag_array))
+                                                <input type="hidden" name="old_tags" value="{{ implode(",",$tag_array) }}">
+                                            @endif
+
                                     </div>
                                 </div>
 
@@ -154,5 +175,29 @@
         e.preventDefault();
         $(this).closest('.main_div').remove();
     });
+
+    $('input[name="homefeed_tags"]').amsifySuggestags({
+    suggestionsAction : {
+		timeout: -1,
+		minChars: 2,
+		minChange: -1,
+		delay: 100,
+		type: 'GET',
+		url: "{{ route('admin.get.tags.suggestions') }}",
+		dataType: null,
+		beforeSend : function() {
+			console.info('beforeSend');
+		},
+		success: function(data) {
+			console.info('success');
+		},
+		error: function() {
+			console.info('error');
+		},
+		complete: function(data) {
+			console.info('complete');
+		}
+	}
+	});
 </script>
 @endsection

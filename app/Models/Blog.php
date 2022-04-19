@@ -9,4 +9,8 @@ class Blog extends Model
 {
     // use HasFactory;
     protected $guarded = ['id'];
+
+    public function tags(){
+        return $this->hasMany(BlogsTags::class,'blog_id')->with('tags');
+    }
 }

@@ -11,6 +11,7 @@ use Cache;
 use Exception;
 use Illuminate\Support\Facades\Http;
 use App\Traits\CheckoutUtility;
+use Illuminate\Support\Facades\Log;
 
 class ShippingAPIHelper
 {
@@ -191,16 +192,19 @@ class ShippingAPIHelper
                 $awb_number = $res['data']['awb_number'];
                 $order->awb_number = $awb_number;
                 $order->save();
+                Log::info('Created Tracking Request');
             }
 
             else{
                 info("Checkout Shipping == " . json_encode($orderDetails) . " - ". $res['message']);
+                Log::info('Tracking Request create Failed');
             }
             // dd($res);
         //    dd($res);
 
 
         } catch (Exception $e) {
+            Log::info('Tracking Request create Failed');
             info("Checkout Shipping == " . $e->getMessage());
         }
     }
